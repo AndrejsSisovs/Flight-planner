@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "WebApplication1.Controllers.AdminController",
+    "Method": "AddFlight",
+    "RelativePath": "admin-api/flights",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "flight",
+        "Type": "WebApplication1.models.Flight",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.AdminController",
     "Method": "GetFlight",
     "RelativePath": "admin-api/flights/{id}",
     "HttpMethod": "GET",
@@ -13,6 +29,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TestingController",
+    "Method": "Clear",
+    "RelativePath": "testing-api/clear",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

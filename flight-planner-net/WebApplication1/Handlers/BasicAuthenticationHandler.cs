@@ -35,7 +35,7 @@ namespace WebApplication1.Handlers
                 var username = credentials[0];
                 var password = credentials[1];
 
-                if (username != "codexlex-admin" || password != "Password123")
+                if (username != "codelex-admin" || password != "Password123")
                 {
                     return AuthenticateResult.Fail("Invalid Username or password");
                 }
