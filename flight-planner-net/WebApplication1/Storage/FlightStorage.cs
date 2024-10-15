@@ -45,16 +45,51 @@ namespace WebApplication1.Storage
         {
             if (flight == null || flight.From == null || flight.To == null)
             {
-                // Return false if flight or airport data is missing
                 return false;
             }
 
-            // Normalize the airport codes by trimming any whitespace and converting to lower case
             string departureAirportCode = flight.From.AirportCode?.Trim().ToLowerInvariant();
             string arrivalAirportCode = flight.To.AirportCode?.Trim().ToLowerInvariant();
 
-            // Check if the departure and arrival airport codes are the same
             return departureAirportCode == arrivalAirportCode;
         }
+
+        public static bool AreFlightDatesInvalid(Flight flight)
+        {
+            if (string.IsNullOrEmpty(flight.DepartureTime) || string.IsNullOrEmpty(flight.ArrivalTime))
+            {
+                return true;
+            }
+
+            DateTime departureTime, arrivalTime;
+
+            if (!DateTime.TryParse(flight.DepartureTime, out departureTime) ||
+                !DateTime.TryParse(flight.ArrivalTime, out arrivalTime))
+            {
+                
+                return true;
+            }
+
+            if (arrivalTime <= departureTime)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool FlightDeleted(int flightId)
+        {
+            var flight = _flights.FirstOrDefault(f => f.Id == flightId);
+
+            if (flight != null)
+            {
+                _flights.Remove(flight);
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

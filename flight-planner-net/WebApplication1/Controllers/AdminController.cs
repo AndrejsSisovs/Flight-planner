@@ -42,10 +42,33 @@ namespace WebApplication1.Controllers
                 return BadRequest("Departure and arrival airports cannot be the same.");
             }
 
+            if (FlightStorage.AreFlightDatesInvalid(flight))
+            {
+                return BadRequest("Invalid flight times: Arrival time must be after departure time.");
+            }
 
+
+            AirportStorage.AddAirport(flight.From);
+            AirportStorage.AddAirport(flight.To);
             Flight storedFlight = FlightStorage.AddFlight(flight);
+            
 
             return Created("", storedFlight);
+        }
+
+
+        [Route("flights/{id}")]
+        [HttpDelete]
+        public IActionResult DeleteFlight(int id)
+        {
+            bool isDeleted = FlightStorage.FlightDeleted(id);
+
+            if (isDeleted)
+            {
+                return Ok();
+            }
+
+            return Ok();
         }
     }
 }
