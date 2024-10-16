@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
+using WebApplication1.models;
 using WebApplication1.Storage;
 
 namespace WebApplication1.Controllers
@@ -26,27 +29,38 @@ namespace WebApplication1.Controllers
 
             return Ok(matchingAirports);
         }
-        /*
+
         [Route("flights/search")]
         [HttpPost]
-        public IActionResult SearchFlights([FromBody] SearchFlightsRequest req)
+        public IActionResult SearchFlights(SearchFlightsRequest searchRequest)
         {
-            var matchingFlights = FlightStorage.SearchFlights(req);
-            return Ok(matchingFlights);
+            if (string.IsNullOrEmpty(searchRequest.DepartureAirport) ||
+                string.IsNullOrEmpty(searchRequest.DestinationAirport) ||
+                searchRequest.FlightDate == DateTime.MinValue ||
+                searchRequest.DepartureAirport == searchRequest.DestinationAirport)
+            {
+                return BadRequest();
+            }
+
+            var matchingFlights = FlightStorage.SearchFlights(searchRequest);
+
+            return Ok(new { Page = 0, TotalItems = 0, Items = matchingFlights.Any() ? matchingFlights : new List<Flight>() });
+            
+
         }
-        */
-        /*
+
         [Route("flights/{id}")]
         [HttpGet]
         public IActionResult FindFlightById(int id)
         {
             var flight = FlightStorage.FindFlightById(id);
+
             if (flight == null)
             {
                 return NotFound();
             }
+
             return Ok(flight);
         }
-        */
     }
 }

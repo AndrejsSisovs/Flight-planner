@@ -91,5 +91,45 @@ namespace WebApplication1.Storage
             return false;
         }
 
+        public static List<Flight> SearchFlights(SearchFlightsRequest searchRequest)
+        {
+            //var matchingFlights = new List<Flight>();
+
+
+
+            var matchingFlights = _flights.Where(flight => flight.From.AirportCode == searchRequest.DepartureAirport &&
+                                                            flight.To.AirportCode == searchRequest.DestinationAirport &&
+                                                            DateTime.TryParse(flight.DepartureTime,
+                                                                out DateTime flightDepartureDate) &&
+                                                            flightDepartureDate.Date == searchRequest.FlightDate.Date).ToList();
+
+
+
+
+            //foreach (var flight in _flights)
+            //{
+            //    if (flight.From.AirportCode == searchRequest.DepartureAirport &&
+            //        flight.To.AirportCode == searchRequest.DestinationAirport &&
+            //        DateTime.TryParse(flight.DepartureTime, out DateTime flightDepartureDate) &&
+            //        flightDepartureDate.Date == searchRequest.FlightDate.Date)
+            //    {
+            //        matchingFlights.Add(searchRequest);
+            //    }
+            //}
+
+            return matchingFlights.Any() ? matchingFlights : new List<Flight>() ;
+        }
+
+        public static Flight FindFlightById(int id)
+        {
+            var flight = _flights.FirstOrDefault(f => f.Id == id);
+
+            if (flight == null)
+            {
+                return null;
+            }
+
+            return flight;
+        }
     }
 }
