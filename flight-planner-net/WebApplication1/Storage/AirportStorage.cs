@@ -6,14 +6,18 @@ namespace WebApplication1.Storage
     public static class AirportStorage
     {
         private static List<Airport> _airports = new List<Airport>();
+        private static readonly object _airportLock = new object();
 
         public static void AddAirport(Airport airport)
         {
-            var existingAirport = _airports.FirstOrDefault(a => a.AirportCode == airport.AirportCode);
-
-            if (existingAirport == null)
+            lock (_airportLock)
             {
-                _airports.Add(airport);
+                var existingAirport = _airports.FirstOrDefault(a => a.AirportCode == airport.AirportCode);
+
+                if (existingAirport == null)
+                {
+                    _airports.Add(airport);
+                }
             }
         }
 
@@ -34,7 +38,6 @@ namespace WebApplication1.Storage
             }
 
             return matchingAirports;
-
         }
     }
 }

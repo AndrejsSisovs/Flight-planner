@@ -24,34 +24,38 @@ namespace WebApplication1.Controllers
         {
             if (flight == null)
             {
-                return BadRequest("Flight object is null");
+                return BadRequest();
             }
 
             if (FlightStorage.FlightIsNull(flight))
             {
-                return BadRequest("Invalid flight data");
+                return BadRequest();
             }
 
             if (FlightStorage.FlightExists(flight))
             {
-                return Conflict("Flight already exists");
+                return Conflict();
             }
 
             if (FlightStorage.FlightStringComparision(flight))
             {
-                return BadRequest("Departure and arrival airports cannot be the same.");
+                return BadRequest();
             }
 
             if (FlightStorage.AreFlightDatesInvalid(flight))
             {
-                return BadRequest("Invalid flight times: Arrival time must be after departure time.");
+                return BadRequest();
             }
-
 
             AirportStorage.AddAirport(flight.From);
             AirportStorage.AddAirport(flight.To);
+
             Flight storedFlight = FlightStorage.AddFlight(flight);
-            
+
+            if (storedFlight == null)
+            {
+                return Conflict();
+            }
 
             return Created("", storedFlight);
         }

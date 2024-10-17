@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.models;
 using WebApplication1.Storage;
 
@@ -44,9 +41,13 @@ namespace WebApplication1.Controllers
 
             var matchingFlights = FlightStorage.SearchFlights(searchRequest);
 
-            return Ok(new { Page = 0, TotalItems = 0, Items = matchingFlights.Any() ? matchingFlights : new List<Flight>() });
-            
+            if (matchingFlights.Count() == 0)
+            {
+                return Ok(new { Page = 0, TotalItems = 0, Items = matchingFlights.Any() ? matchingFlights : new List<Flight>() });
+            }
 
+            return Ok(new { Page = 0, TotalItems = matchingFlights.Count(), Items = matchingFlights.Any() ? matchingFlights : new List<Flight>() });
+            
         }
 
         [Route("flights/{id}")]
