@@ -8,6 +8,17 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
+        private readonly FlightStorage _flightStorage;
+        private readonly AirportStorage _airportStorage;
+
+        public CustomerController(FlightStorage flightStorage, AirportStorage airportStorage)
+        {
+            _flightStorage = flightStorage;
+            _airportStorage = airportStorage;
+
+        }
+
+
         [Route("airports")]
         [HttpGet]
         public IActionResult SearchAirports(string search)
@@ -17,7 +28,7 @@ namespace WebApplication1.Controllers
                 return BadRequest();
             }
 
-            var matchingAirports = AirportStorage.SearchAirports(search);
+            var matchingAirports = _airportStorage.SearchAirports(search);
 
             if (!matchingAirports.Any())
             {
@@ -39,7 +50,7 @@ namespace WebApplication1.Controllers
                 return BadRequest();
             }
 
-            var matchingFlights = FlightStorage.SearchFlights(searchRequest);
+            var matchingFlights = _flightStorage.SearchFlights(searchRequest);
 
             if (matchingFlights.Count() == 0)
             {
@@ -47,14 +58,14 @@ namespace WebApplication1.Controllers
             }
 
             return Ok(new { Page = 0, TotalItems = matchingFlights.Count(), Items = matchingFlights.Any() ? matchingFlights : new List<Flight>() });
-            
+
         }
 
         [Route("flights/{id}")]
         [HttpGet]
         public IActionResult FindFlightById(int id)
         {
-            var flight = FlightStorage.FindFlightById(id);
+            var flight = _flightStorage.FindFlightById(id);
 
             if (flight == null)
             {

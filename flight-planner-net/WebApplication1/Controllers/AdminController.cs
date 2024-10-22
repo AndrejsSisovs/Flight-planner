@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Database;
 using WebApplication1.models;
 using WebApplication1.Storage;
 
@@ -10,6 +11,15 @@ namespace WebApplication1.Controllers
     [Authorize]
     public class AdminController : ControllerBase
     {
+        private readonly FlightStorage _flightStorage;
+        private readonly AirportStorage _airportStorage;
+
+        public AdminController(FlightStorage flightStorage, AirportStorage airportStorage)
+        {
+            _flightStorage = flightStorage;
+            _airportStorage = airportStorage;
+
+        }
         
         [Route("flights/{id}")]
         [HttpGet]
@@ -27,37 +37,38 @@ namespace WebApplication1.Controllers
                 return BadRequest();
             }
 
-            if (FlightStorage.FlightIsNull(flight))
+            if (_flightStorage.FlightIsNull(flight))
             {
                 return BadRequest();
             }
 
-            if (FlightStorage.FlightExists(flight))
+            if (_flightStorage.FlightExists(flight))
             {
                 return Conflict();
             }
 
-            if (FlightStorage.FlightStringComparision(flight))
+            if (_flightStorage.FlightStringComparision(flight))
             {
                 return BadRequest();
             }
 
-            if (FlightStorage.AreFlightDatesInvalid(flight))
+            if (_flightStorage.AreFlightDatesInvalid(flight))
             {
                 return BadRequest();
             }
 
-            AirportStorage.AddAirport(flight.From);
-            AirportStorage.AddAirport(flight.To);
+            _airportStorage.AddAirport(flight.From);
+            _airportStorage.AddAirport(flight.To);
 
-            Flight storedFlight = FlightStorage.AddFlight(flight);
+            
 
-            if (storedFlight == null)
+            if (flight == null)
             {
                 return Conflict();
             }
 
-            return Created("", storedFlight);
+            _flightStorage.AddFlight(flight);
+            return Created("", flight);
         }
 
 
@@ -65,7 +76,7 @@ namespace WebApplication1.Controllers
         [HttpDelete]
         public IActionResult DeleteFlight(int id)
         {
-            bool isDeleted = FlightStorage.FlightDeleted(id);
+            bool isDeleted = _flightStorage.FlightDeleted(id);
 
             if (isDeleted)
             {

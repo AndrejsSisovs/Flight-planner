@@ -1,14 +1,20 @@
-﻿using WebApplication1.models;
+﻿using WebApplication1.Database;
+using WebApplication1.models;
 
 namespace WebApplication1.Storage
 {
-    public static class FlightStorage
+    public class FlightStorage
     {
-        private static List<Flight> _flights = new List<Flight>();
-        private static int _id = 0;
+        private readonly FlightPlannerDbContext _context;
+
+        public FlightStorage (FlightPlannerDbContext context)
+        {
+            _context = context;
+        }
+
         private static readonly object _lockFlights = new object();
 
-        public static Flight AddFlight(Flight flight)
+        public Flight AddFlight(Flight flight)
         {
             lock (_lockFlights)
             {
@@ -17,31 +23,26 @@ namespace WebApplication1.Storage
                     return null;
                 }
 
-                if (_flights.Count() != 0)
-                {
-                    flight.Id = _flights.Count() +1;
-                }
-                else
-                {
-                    flight.Id = _id;
-                }
-
-                _flights.Add(flight);
+                _context.Flights.Add(flight);
+                _context.SaveChanges();
 
                 return flight;
             }
         }
 
-        public static void ClearFlights()
+        public void ClearFlights()
         {
-            _flights.Clear();
+           _context.Flights.RemoveRange(_context.Flights);
+           _context.Airports.RemoveRange(_context.Airports);
+           _context.SaveChanges();
         }
 
-        public static bool FlightExists(Flight flight)
+        public bool FlightExists(Flight flight)
         {
             lock (_lockFlights)
             {
-                return _flights.Any(existingFlight =>
+
+                return _context.Flights.Any(existingFlight =>
                     existingFlight.From.AirportCode == flight.From.AirportCode &&
                     existingFlight.To.AirportCode == flight.To.AirportCode &&
                     existingFlight.Carrier == flight.Carrier &&
@@ -50,7 +51,7 @@ namespace WebApplication1.Storage
             }
         }
 
-        public static bool FlightIsNull(Flight flight)
+        public bool FlightIsNull(Flight flight)
         {
             return string.IsNullOrEmpty(flight.Carrier) ||
                    flight.From == null ||
@@ -61,7 +62,7 @@ namespace WebApplication1.Storage
                    string.IsNullOrEmpty(flight.ArrivalTime);
         }
 
-        public static bool FlightStringComparision(Flight flight)
+        public bool FlightStringComparision(Flight flight)
         {
             if (flight == null || flight.From == null || flight.To == null)
             {
@@ -74,7 +75,7 @@ namespace WebApplication1.Storage
             return departureAirportCode == arrivalAirportCode;
         }
 
-        public static bool AreFlightDatesInvalid(Flight flight)
+        public bool AreFlightDatesInvalid(Flight flight)
         {
             if (string.IsNullOrEmpty(flight.DepartureTime) || string.IsNullOrEmpty(flight.ArrivalTime))
             {
@@ -97,15 +98,16 @@ namespace WebApplication1.Storage
             return false;
         }
 
-        public static bool FlightDeleted(int flightId)
+        public bool FlightDeleted(int flightId)
         {
             lock (_lockFlights)
             {
-                var flight = _flights.FirstOrDefault(f => f.Id == flightId);
+                var flight = _context.Flights.FirstOrDefault(f => f.Id == flightId);
 
                 if (flight != null)
                 {
-                    _flights.Remove(flight);
+                    _context.Flights.RemoveRange(_context.Flights);
+                    //_context.Flights.Remove(flight);
                     return true;
                 }
 
@@ -113,21 +115,20 @@ namespace WebApplication1.Storage
             }
         }
 
-        public static List<Flight> SearchFlights(SearchFlightsRequest searchRequest)
+        public List<Flight> SearchFlights(SearchFlightsRequest searchRequest)
         {
-                var matchingFlights =
-                    _flights.Where(flight => flight.From.AirportCode == searchRequest.DepartureAirport &&
-                                             flight.To.AirportCode == searchRequest.DestinationAirport &&
-                                             DateTime.TryParse(flight.DepartureTime,
-                                                 out DateTime flightDepartureDate) &&
-                                             flightDepartureDate.Date == searchRequest.FlightDate.Date).ToList();
+            var matchingFlights =
+                _context.Flights.Where(flight => flight.From.AirportCode == searchRequest.DepartureAirport &&
+                                                 flight.To.AirportCode == searchRequest.DestinationAirport &&
+                                                 DateTime.TryParse(flight.DepartureTime, DateTime flightDepartureDate) &&
+                                                 flightDepartureDate.Date == searchRequest.FlightDate.Date).ToList();
 
-                return matchingFlights;
+            return matchingFlights;
         }
 
-        public static Flight FindFlightById(int id)
+        public Flight FindFlightById(int id)
         {
-            var flight = _flights.FirstOrDefault(f => f.Id == id);
+            var flight = _context.Flights.FirstOrDefault(f => f.Id == id);
 
             if (flight == null)
             {
