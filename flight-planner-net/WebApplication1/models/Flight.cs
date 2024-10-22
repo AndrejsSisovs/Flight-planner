@@ -1,4 +1,6 @@
-﻿namespace WebApplication1.models
+﻿using System.Text.Json.Serialization;
+
+namespace WebApplication1.models
 {
     public class Flight
     {

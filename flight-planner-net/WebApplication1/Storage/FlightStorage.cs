@@ -1,4 +1,5 @@
-﻿using WebApplication1.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApplication1.Database;
 using WebApplication1.models;
 
 namespace WebApplication1.Storage
@@ -117,25 +118,43 @@ namespace WebApplication1.Storage
 
         public List<Flight> SearchFlights(SearchFlightsRequest searchRequest)
         {
-            var matchingFlights =
-                _context.Flights.Where(flight => flight.From.AirportCode == searchRequest.DepartureAirport &&
-                                                 flight.To.AirportCode == searchRequest.DestinationAirport &&
-                                                 DateTime.TryParse(flight.DepartureTime, DateTime flightDepartureDate) &&
-                                                 flightDepartureDate.Date == searchRequest.FlightDate.Date).ToList();
+            var matchingFlights = new List<Flight>();
+
+            foreach (var flight in _context.Flights)
+            {
+                // Check if 'From' or 'To' is null before accessing their properties
+                if (flight.From == null || flight.To == null)
+                {
+                    continue;  // Skip flights that have null 'From' or 'To'
+                }
+
+                // Parse the departure time and match it with the search request date
+                if (flight.From.AirportCode == searchRequest.DepartureAirport &&
+                    flight.To.AirportCode == searchRequest.DestinationAirport &&
+                    DateTime.TryParse(flight.DepartureTime, out DateTime flightDepartureDate) &&
+                    flightDepartureDate.Date == searchRequest.FlightDate.Date)
+                {
+                    matchingFlights.Add(flight);
+                }
+            }
 
             return matchingFlights;
         }
 
         public Flight FindFlightById(int id)
         {
-            var flight = _context.Flights.FirstOrDefault(f => f.Id == id);
+            // Use Include() to eagerly load the From and To related entities
+            var returnedFlight = _context.Flights
+                .Include(f => f.From)
+                .Include(f => f.To)
+                .FirstOrDefault(f => f.Id == id);
 
-            if (flight == null)
+            if (returnedFlight == null)
             {
                 return null;
             }
 
-            return flight;
+            return returnedFlight;
         }
     }
 }
