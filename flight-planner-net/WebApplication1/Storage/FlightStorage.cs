@@ -42,7 +42,6 @@ namespace WebApplication1.Storage
         {
             lock (_lockFlights)
             {
-
                 return _context.Flights.Any(existingFlight =>
                     existingFlight.From.AirportCode == flight.From.AirportCode &&
                     existingFlight.To.AirportCode == flight.To.AirportCode &&
@@ -107,8 +106,7 @@ namespace WebApplication1.Storage
 
                 if (flight != null)
                 {
-                    _context.Flights.RemoveRange(_context.Flights);
-                    //_context.Flights.Remove(flight);
+                    _context.Flights.Remove(flight);
                     return true;
                 }
 
@@ -120,15 +118,13 @@ namespace WebApplication1.Storage
         {
             var matchingFlights = new List<Flight>();
 
-            foreach (var flight in _context.Flights)
+            foreach (var flight in _context.Flights.Include(f => f.From).Include(f => f.To))
             {
-                // Check if 'From' or 'To' is null before accessing their properties
                 if (flight.From == null || flight.To == null)
                 {
-                    continue;  // Skip flights that have null 'From' or 'To'
+                    continue;
                 }
 
-                // Parse the departure time and match it with the search request date
                 if (flight.From.AirportCode == searchRequest.DepartureAirport &&
                     flight.To.AirportCode == searchRequest.DestinationAirport &&
                     DateTime.TryParse(flight.DepartureTime, out DateTime flightDepartureDate) &&
@@ -143,7 +139,6 @@ namespace WebApplication1.Storage
 
         public Flight FindFlightById(int id)
         {
-            // Use Include() to eagerly load the From and To related entities
             var returnedFlight = _context.Flights
                 .Include(f => f.From)
                 .Include(f => f.To)

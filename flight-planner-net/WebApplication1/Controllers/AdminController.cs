@@ -18,7 +18,6 @@ namespace WebApplication1.Controllers
         {
             _flightStorage = flightStorage;
             _airportStorage = airportStorage;
-
         }
         
         [Route("flights/{id}")]
@@ -60,8 +59,6 @@ namespace WebApplication1.Controllers
             _airportStorage.AddAirport(flight.From);
             _airportStorage.AddAirport(flight.To);
 
-            
-
             if (flight == null)
             {
                 return Conflict();
@@ -70,7 +67,6 @@ namespace WebApplication1.Controllers
             _flightStorage.AddFlight(flight);
             return Created("", flight);
         }
-
 
         [Route("flights/{id}")]
         [HttpDelete]

@@ -15,9 +15,7 @@ namespace WebApplication1.Controllers
         {
             _flightStorage = flightStorage;
             _airportStorage = airportStorage;
-
         }
-
 
         [Route("airports")]
         [HttpGet]
@@ -57,8 +55,7 @@ namespace WebApplication1.Controllers
                 return Ok(new { Page = 0, TotalItems = 0, Items = matchingFlights.Any() ? matchingFlights : new List<Flight>() });
             }
 
-            return Ok(new { Page = 0, TotalItems = matchingFlights.Count(), Items = matchingFlights.Any() ? matchingFlights : new List<Flight>() });
-
+            return Ok(new { Page = 0, TotalItems = matchingFlights.Count(), Items = new List<Flight>() });
         }
 
         [Route("flights/{id}")]
