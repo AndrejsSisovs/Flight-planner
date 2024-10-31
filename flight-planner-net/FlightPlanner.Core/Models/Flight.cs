@@ -1,10 +1,13 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace WebApplication1.models
+namespace FlightPlanner.Core.Models
 {
-    public class Flight
+    public class Flight: Entity
     {
-        public int Id { get; set; }
         public Airport From { get; set; }
         public Airport To { get; set; }
         public string Carrier { get; set; }

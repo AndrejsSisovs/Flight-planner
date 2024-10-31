@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FlightPlanner.Core.Models;
+using Microsoft.EntityFrameworkCore;
 using WebApplication1.Database;
 using WebApplication1.models;
 

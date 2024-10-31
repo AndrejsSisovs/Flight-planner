@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using FlightPlanner.Core.Models;
+using System.Security.Cryptography;
 using WebApplication1.Database;
 using WebApplication1.models;
 
