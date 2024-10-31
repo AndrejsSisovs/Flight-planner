@@ -36,27 +36,27 @@ namespace WebApplication1.Controllers
             return Ok(matchingAirports);
         }
 
-        [Route("flights/search")]
-        [HttpPost]
-        public IActionResult SearchFlights(SearchFlightsRequest searchRequest)
-        {
-            if (string.IsNullOrEmpty(searchRequest.DepartureAirport) ||
-                string.IsNullOrEmpty(searchRequest.DestinationAirport) ||
-                searchRequest.FlightDate == DateTime.MinValue ||
-                searchRequest.DepartureAirport == searchRequest.DestinationAirport)
-            {
-                return BadRequest();
-            }
+        //[Route("flights/search")]
+        //[HttpPost]
+        //public IActionResult SearchFlights(SearchFlightsRequest searchRequest)
+        //{
+        //    if (string.IsNullOrEmpty(searchRequest.DepartureAirport) ||
+        //        string.IsNullOrEmpty(searchRequest.DestinationAirport) ||
+        //        searchRequest.FlightDate == DateTime.MinValue ||
+        //        searchRequest.DepartureAirport == searchRequest.DestinationAirport)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            var matchingFlights = _flightStorage.SearchFlights(searchRequest);
+        //    var matchingFlights = _flightStorage.SearchFlights(searchRequest);
 
-            if (matchingFlights.Count() == 0)
-            {
-                return Ok(new { Page = 0, TotalItems = 0, Items = matchingFlights.Any() ? matchingFlights : new List<Flight>() });
-            }
+        //    if (matchingFlights.Count() == 0)
+        //    {
+        //        return Ok(new { Page = 0, TotalItems = 0, Items = matchingFlights.Any() ? matchingFlights : new List<Flight>() });
+        //    }
 
-            return Ok(new { Page = 0, TotalItems = matchingFlights.Count(), Items = new List<Flight>() });
-        }
+        //    return Ok(new { Page = 0, TotalItems = matchingFlights.Count(), Items = new List<Flight>() });
+        //}
 
         [Route("flights/{id}")]
         [HttpGet]

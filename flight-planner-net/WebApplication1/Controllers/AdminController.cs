@@ -16,11 +16,11 @@ namespace WebApplication1.Controllers
         private readonly FlightStorage _flightStorage;
         private readonly AirportStorage _airportStorage;
 
-        public AdminController(FlightStorage flightStorage, AirportStorage airportStorage)
-        {
-            _flightStorage = flightStorage;
-            _airportStorage = airportStorage;
-        }
+        //public AdminController(FlightStorage flightStorage, AirportStorage airportStorage)
+        //{
+        //    _flightStorage = flightStorage;
+        //    _airportStorage = airportStorage;
+        //}
         
         [Route("flights/{id}")]
         [HttpGet]

@@ -1,7 +1,5 @@
 ﻿using FlightPlanner.Core.Models;
-using System.Security.Cryptography;
-using WebApplication1.Database;
-using WebApplication1.models;
+using FlightPlanner.Data;
 
 namespace WebApplication1.Storage
 {

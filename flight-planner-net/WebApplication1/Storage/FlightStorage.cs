@@ -1,6 +1,6 @@
 ﻿using FlightPlanner.Core.Models;
+using FlightPlanner.Data;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Database;
 using WebApplication1.models;
 
 namespace WebApplication1.Storage
