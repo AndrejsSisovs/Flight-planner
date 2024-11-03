@@ -8,8 +8,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "flight",
-        "Type": "WebApplication1.models.Flight",
+        "Name": "request",
+        "Type": "WebApplication1.models.FlightRequest",
         "IsRequired": true
       }
     ],
@@ -20,22 +20,6 @@
     "Method": "GetFlight",
     "RelativePath": "admin-api/flights/{id}",
     "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.AdminController",
-    "Method": "DeleteFlight",
-    "RelativePath": "admin-api/flights/{id}",
-    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -74,22 +58,6 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.CustomerController",
-    "Method": "SearchFlights",
-    "RelativePath": "api/flights/search",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "searchRequest",
-        "Type": "WebApplication1.models.SearchFlightsRequest",
         "IsRequired": true
       }
     ],

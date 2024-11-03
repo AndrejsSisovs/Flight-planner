@@ -147,3 +147,6 @@ C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\W
 C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\WebApplication1\bin\Debug\net8.0\FlightPlanner.Core.pdb
 C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\WebApplication1\bin\Debug\net8.0\FlightPlanner.Data.pdb
 C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\WebApplication1\bin\Debug\net8.0\Flightplanner.Services.pdb
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\WebApplication1\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\WebApplication1\bin\Debug\net8.0\FluentValidation.dll
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\WebApplication1\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll

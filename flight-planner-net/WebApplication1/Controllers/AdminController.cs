@@ -19,21 +19,13 @@ namespace WebApplication1.Controllers
         IFlightService flightService, 
         IEnumerable<IValidator> validators,
         IMapper mapper,
-        IValidator<Flight> _validator) : ControllerBase
+        IValidator<Flight> validator) : ControllerBase
     {
         private readonly IFlightService _flightService = flightService;
         private readonly IEnumerable<IValidator> _validators = validators;
-        private readonly IValidator<Flight> _validator;
+        private readonly IValidator<Flight> _validator = validator;
         private readonly IMapper _mapper = mapper;
 
-        //private readonly FlightStorage _flightStorage;
-        //private readonly AirportStorage _airportStorage;
-
-        //public AdminController(FlightStorage flightStorage, AirportStorage airportStorage)
-        //{
-        //    _flightStorage = flightStorage;
-        //    _airportStorage = airportStorage;
-        //}
         
         [Route("flights/{id}")]
         [HttpGet]
@@ -52,40 +44,6 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult AddFlight(FlightRequest request)
         {
-            //if (flight == null)
-            //{
-            //    return BadRequest();
-            //}
-
-            //if (_flightStorage.FlightIsNull(flight))
-            //{
-            //    return BadRequest();
-            //}
-
-            //if (_flightStorage.FlightExists(flight))
-            //{
-            //    return Conflict();
-            //}
-
-            //if (_flightStorage.FlightStringComparision(flight))
-            //{
-            //    return BadRequest();
-            //}
-
-            //if (_flightStorage.AreFlightDatesInvalid(flight))
-            //{
-            //    return BadRequest();
-            //}
-
-            //_airportStorage.AddAirport(flight.From);
-            //_airportStorage.AddAirport(flight.To);
-
-            //if (flight == null)
-            //{
-            //    return Conflict();
-            //}
-
-            //_flightStorage.AddFlight(flight);
 
             var flight = _mapper.Map<Flight>(request);
             var validationResult = _validator.Validate(flight);
