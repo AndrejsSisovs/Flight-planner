@@ -2,11 +2,6 @@
 using FlightPlanner.Core.Services;
 using FlightPlanner.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Flightplanner.Services
 {
@@ -23,5 +18,19 @@ namespace Flightplanner.Services
                 .Include(flight => flight.To)
                 .SingleOrDefault(flight => flight.Id == id);
         }
+
+        public bool FlightExists(Flight flight)
+        {
+            return _context.Flights.Any(existingFlight =>
+                existingFlight.From.AirportCode == flight.From.AirportCode &&
+                existingFlight.To.AirportCode == flight.To.AirportCode &&
+                existingFlight.Carrier == flight.Carrier &&
+                existingFlight.DepartureTime == flight.DepartureTime &&
+                existingFlight.ArrivalTime == flight.ArrivalTime);
+        }
+
+
+
+
     }
 }

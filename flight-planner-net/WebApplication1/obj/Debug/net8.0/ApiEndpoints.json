@@ -32,38 +32,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "WebApplication1.Controllers.CustomerController",
-    "Method": "SearchAirports",
-    "RelativePath": "api/airports",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "search",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.CustomerController",
-    "Method": "FindFlightById",
-    "RelativePath": "api/flights/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "WebApplication1.Controllers.TestingController",
     "Method": "Clear",
     "RelativePath": "testing-api/clear",

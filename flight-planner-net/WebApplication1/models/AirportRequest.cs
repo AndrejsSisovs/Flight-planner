@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace WebApplication1.models
+﻿namespace WebApplication1.models
 {
     public class AirportRequest
     {

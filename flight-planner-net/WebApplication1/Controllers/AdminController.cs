@@ -6,27 +6,33 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.models;
-using WebApplication1.Storage;
-using WebApplication1.Validations;
 using IValidator = WebApplication1.Validations.IValidator;
 
 namespace WebApplication1.Controllers
 {
     [Route("admin-api")]
     [ApiController]
-    [Authorize] 
-    public class AdminController(
-        IFlightService flightService, 
-        IEnumerable<IValidator> validators,
-        IMapper mapper,
-        IValidator<Flight> validator) : ControllerBase
+    [Authorize]
+    public class AdminController : ControllerBase
     {
-        private readonly IFlightService _flightService = flightService;
-        private readonly IEnumerable<IValidator> _validators = validators;
-        private readonly IValidator<Flight> _validator = validator;
-        private readonly IMapper _mapper = mapper;
+        private readonly IFlightService _flightService;
+        private readonly IEnumerable<IValidator> _validators;
+        private readonly IValidator<Flight> _validator;
+        private readonly IMapper _mapper;
 
-        
+        public AdminController(
+            IFlightService flightService,
+            IEnumerable<IValidator> validators,
+            IMapper mapper,
+            IValidator<Flight> validator)
+        {
+            _flightService = flightService;
+            _validators = validators;
+            _validator = validator;
+            _mapper = mapper;
+        }
+
+
         [Route("flights/{id}")]
         [HttpGet]
         public IActionResult GetFlight(int id)
@@ -37,7 +43,7 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
             var response = _mapper.Map<FlightResponse>(result); ;
-            return Ok(result);
+            return Ok(response);
         }
 
         [Route("flights")]
@@ -52,10 +58,15 @@ namespace WebApplication1.Controllers
                 return BadRequest();
             }
 
+            if (_flightService.FlightExists(flight))
+            {
+                return Conflict("This flight already exists.");
+            }
+
             var result =  _flightService.Create(flight);
             var response = _mapper.Map<FlightResponse>(flight);
             response.Id = result.Entity.Id;
-            return Created("", flight);
+            return Created("", response);
         }
 
 

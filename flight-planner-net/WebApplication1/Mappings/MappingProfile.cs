@@ -9,15 +9,18 @@ namespace WebApplication1.Mappings
         public MappingProfile() 
         {
             CreateMap<FlightRequest, Flight>();
+
             CreateMap<AirportRequest, Airport>()
                 .ForMember(airport => airport.AirportCode,
-                           option => option.MapFrom(request => request.Airport))
+                option => option.MapFrom(request => request.Airport))
                 .ForMember(airport => airport.Id,
-                           options => options.Ignore());
+                options => options.Ignore());
+
             CreateMap<Flight, FlightResponse>();
+
             CreateMap<Airport, AirportResponse>()
                 .ForMember(response => response.Airport,
-                           option => option.MapFrom(request => request.AirportCode));
+                option => option.MapFrom(request => request.AirportCode));
         }
     }
 }
