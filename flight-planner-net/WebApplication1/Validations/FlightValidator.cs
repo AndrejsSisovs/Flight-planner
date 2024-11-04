@@ -28,7 +28,6 @@ namespace WebApplication1.Validations
             RuleFor(flight => flight.From.AirportCode).NotNull().NotEmpty();
             RuleFor(flight => flight.To.AirportCode).NotNull().NotEmpty();
 
-
             RuleFor(flight => flight)
                 .Must(f => !string.Equals(f.From.AirportCode?.Trim().ToLower(), f.To.AirportCode?.Trim().ToLower()));
         }

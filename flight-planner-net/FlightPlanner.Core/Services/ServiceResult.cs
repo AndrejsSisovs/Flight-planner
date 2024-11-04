@@ -4,15 +4,11 @@ namespace FlightPlanner.Core.Services
 {
     public class ServiceResult
     {
-        public ServiceResult() 
+        public ServiceResult(bool v) 
         { 
 
         }
 
-        public ServiceResult(bool succeeded) 
-        {
-            Succeeded = succeeded;
-        }
         public Entity Entity { get; private set; }
 
         public bool Succeeded { get; private set; }

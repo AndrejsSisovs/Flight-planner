@@ -29,8 +29,17 @@ namespace Flightplanner.Services
                 existingFlight.ArrivalTime == flight.ArrivalTime);
         }
 
+        public ServiceResult DeleteFlight(int id)
+        {
+            var flight = GetById(id);
 
+            if (flight == null)
+            {
+                return new ServiceResult(false);
+            }
 
+            return Delete(flight);
+        }
 
     }
 }

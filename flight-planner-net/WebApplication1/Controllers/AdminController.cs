@@ -70,18 +70,13 @@ namespace WebApplication1.Controllers
         }
 
 
-        //[Route("flights/{id}")]
-        //[HttpDelete]
-        //public IActionResult DeleteFlight(int id)
-        //{
-        //    bool isDeleted = _flightStorage.FlightDeleted(id);
-
-        //    if (isDeleted)
-        //    {
-        //        return Ok();
-        //    }
-
-        //    return Ok();
-        //}
+        [Route("flights/{id}")]
+        [HttpDelete]
+        public IActionResult DeleteFlight(int id)
+        {
+            var result = _flightService.DeleteFlight(id);
+            
+            return Ok();
+        }
     }
 }
