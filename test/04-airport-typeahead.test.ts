@@ -49,6 +49,7 @@ describe("Airport Typeahead", () => {
         ])
 
         const responses = await Promise.all(phrases.map(it => CustomerFlightApi.searchAirports(it)))
+        console.log()
 
         responses.forEach(res => {
             expect(res.status).toBe(200)

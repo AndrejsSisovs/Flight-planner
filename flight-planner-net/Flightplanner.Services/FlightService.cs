@@ -11,12 +11,12 @@ namespace Flightplanner.Services
         {
         }
 
-        public Flight? GetFullFlightById (int id)
+        public Flight? GetFullFlightById(int id)
         {
-           return _context.Flights
-                .Include(flight => flight.From)
-                .Include(flight => flight.To)
-                .SingleOrDefault(flight => flight.Id == id);
+            return _context.Flights
+                 .Include(flight => flight.From)
+                 .Include(flight => flight.To)
+                 .SingleOrDefault(flight => flight.Id == id);
         }
 
         public bool FlightExists(Flight flight)
@@ -41,5 +41,14 @@ namespace Flightplanner.Services
             return Delete(flight);
         }
 
+        public IEnumerable<Flight> SearchFlights(Flight searchRequest)
+        {
+
+            // Call the storage method to retrieve matching flights
+            var matchingFlights = _flightStorage.SearchFlights(searchRequest);
+
+            return matchingFlights;
+
+        }
     }
 }

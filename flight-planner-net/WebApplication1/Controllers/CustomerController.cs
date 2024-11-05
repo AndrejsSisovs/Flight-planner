@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Flightplanner.Services;
+using FlightPlanner.Core.Models;
+using FlightPlanner.Core.Services;
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
+using WebApplication1.models;
 
 namespace WebApplication1.Controllers
 {
@@ -6,60 +12,71 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
+        private readonly IFlightService _flightService;
+        private readonly IAirportService _airportService;
+        private readonly IEnumerable<IValidator> _validators;
+        private readonly IValidator<Flight> _validator;
+        private readonly IMapper _mapper;
 
-        //[Route("airports")]
-        //[HttpGet]
-        //public IActionResult SearchAirports(string search)
-        //{
-        //    if (string.IsNullOrEmpty(search))
-        //    {
-        //        return BadRequest();
-        //    }
+        public CustomerController(
+            IFlightService flightService, 
+            IAirportService airportService,
+            IMapper mapper,
+            IEnumerable<IValidator> validators,
+            IValidator<Flight> validator)
+        {
+            _flightService = flightService;
+            _mapper = mapper;
+            _airportService = airportService;
+            _validators = validators;
+            _validator = validator;
+        }
 
-        //    var matchingAirports = _airportStorage.SearchAirports(search);
+        [Route("airports")]
+        [HttpGet]
+        public IActionResult SearchAirports(string search)
+        {
+            var result = _airportService.SearchAirports(search);
 
-        //    if (!matchingAirports.Any())
-        //    {
-        //        return NotFound();
-        //    }
+            if (!result.Any())
+            {
+                return NotFound();
+            }
 
-        //    return Ok(matchingAirports);
-        //}
+            var response = _mapper.Map<IEnumerable<AirportResponse>>(result);
 
-        ////[Route("flights/search")]
-        ////[HttpPost]
-        ////public IActionResult SearchFlights(SearchFlightsRequest searchRequest)
-        ////{
-        ////    if (string.IsNullOrEmpty(searchRequest.DepartureAirport) ||
-        ////        string.IsNullOrEmpty(searchRequest.DestinationAirport) ||
-        ////        searchRequest.FlightDate == DateTime.MinValue ||
-        ////        searchRequest.DepartureAirport == searchRequest.DestinationAirport)
-        ////    {
-        ////        return BadRequest();
-        ////    }
+            return Ok(response);
+        }
 
-        ////    var matchingFlights = _flightStorage.SearchFlights(searchRequest);
 
-        ////    if (matchingFlights.Count() == 0)
-        ////    {
-        ////        return Ok(new { Page = 0, TotalItems = 0, Items = matchingFlights.Any() ? matchingFlights : new List<Flight>() });
-        ////    }
+        [Route("flights/search")]
+        [HttpPost]
+        public IActionResult SearchFlights(SearchFlightsRequest searchRequest)
+        {
 
-        ////    return Ok(new { Page = 0, TotalItems = matchingFlights.Count(), Items = new List<Flight>() });
-        ////}
+            var matchingFlights = _flightService.SearchFlights(searchRequest);
 
-        //[Route("flights/{id}")]
-        //[HttpGet]
-        //public IActionResult FindFlightById(int id)
-        //{
-        //    var flight = _flightStorage.FindFlightById(id);
+            if (!matchingFlights.Any())
+            {
+                return Ok(new { Page = 0, TotalItems = 0, Items = new List<Flight>() });
+            }
 
-        //    if (flight == null)
-        //    {
-        //        return NotFound();
-        //    }
+            return Ok(new { Page = 0, TotalItems = matchingFlights.Count(), Items = matchingFlights });
+        }
 
-        //    return Ok(flight);
-        //}
+        [Route("flights/{id}")]
+        [HttpGet]
+        public IActionResult FindFlightById(int id)
+        {
+            var result = _flightService.GetFullFlightById(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            var response = _mapper.Map<FlightResponse>(result); ;
+            return Ok(response);
+        }
+
+
     }
 }

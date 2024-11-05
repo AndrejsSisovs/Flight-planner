@@ -50,7 +50,6 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult AddFlight(FlightRequest request)
         {
-
             var flight = _mapper.Map<Flight>(request);
             var validationResult = _validator.Validate(flight);
             if (!validationResult.IsValid)
@@ -60,7 +59,7 @@ namespace WebApplication1.Controllers
 
             if (_flightService.FlightExists(flight))
             {
-                return Conflict("This flight already exists.");
+                return Conflict();
             }
 
             var result =  _flightService.Create(flight);

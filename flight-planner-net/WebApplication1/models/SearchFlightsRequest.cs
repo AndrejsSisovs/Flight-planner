@@ -1,14 +1,9 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WebApplication1.models
+﻿namespace WebApplication1.models
 {
     public class SearchFlightsRequest
     {
-        [JsonPropertyName("from")]
-        public string DepartureAirport { get; set; }
-        [JsonPropertyName("to")]
-        public string DestinationAirport { get; set; }
-        [JsonPropertyName("departureDate")]
-        public DateTime FlightDate { get; set; }
+        public AirportRequest From { get; set; }
+        public AirportRequest To { get; set; }
+        public string? DepartureTime { get; set; }
     }
 }
