@@ -1,12 +1,5 @@
-C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Core\bin\Debug\net8.0\FlightPlanner.Core.deps.json
-C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Core\bin\Debug\net8.0\FlightPlanner.Core.dll
-C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Core\bin\Debug\net8.0\FlightPlanner.Core.pdb
 C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Core\obj\Debug\net8.0\FlightPlanner.Core.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Core\obj\Debug\net8.0\FlightPlanner.Core.AssemblyInfoInputs.cache
 C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Core\obj\Debug\net8.0\FlightPlanner.Core.AssemblyInfo.cs
 C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Core\obj\Debug\net8.0\FlightPlanner.Core.csproj.CoreCompileInputs.cache
 C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Core\obj\Debug\net8.0\FlightPlanner.Core.sourcelink.json
-C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Core\obj\Debug\net8.0\FlightPlanner.Core.dll
-C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Core\obj\Debug\net8.0\refint\FlightPlanner.Core.dll
-C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Core\obj\Debug\net8.0\FlightPlanner.Core.pdb
-C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Core\obj\Debug\net8.0\ref\FlightPlanner.Core.dll

@@ -53,9 +53,18 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult SearchFlights(SearchFlightsRequest searchRequest)
         {
+            // Map to DTO
+            var searchDto = new SearchFlightsDto
+            {
+                FromAirport = searchRequest.From?.Airport,
+                ToAirport = searchRequest.To?.Airport,
+                DepartureTime = searchRequest.DepartureTime
+            };
 
-            var matchingFlights = _flightService.SearchFlights(searchRequest);
+            // Call the service method to search for flights
+            var matchingFlights = _flightService.SearchFlights(searchDto);
 
+            // Return results
             if (!matchingFlights.Any())
             {
                 return Ok(new { Page = 0, TotalItems = 0, Items = new List<Flight>() });

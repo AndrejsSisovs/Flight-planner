@@ -41,14 +41,27 @@ namespace Flightplanner.Services
             return Delete(flight);
         }
 
-        public IEnumerable<Flight> SearchFlights(Flight searchRequest)
+        public IEnumerable<Flight> SearchFlights(SearchFlightsDto searchDto)
         {
+            // Validate the request
+            if (string.IsNullOrEmpty(searchDto.FromAirport) ||
+                string.IsNullOrEmpty(searchDto.ToAirport) ||
+                string.IsNullOrEmpty(searchDto.DepartureTime) ||
+                searchDto.FromAirport == searchDto.ToAirport)
+            {
+                throw new ArgumentException("Invalid search parameters.");
+            }
 
-            // Call the storage method to retrieve matching flights
-            var matchingFlights = _flightStorage.SearchFlights(searchRequest);
+            // Query the database for matching flights
+            var matchingFlights = _context.Flights
+                .Include(f => f.From)
+                .Include(f => f.To)
+                .Where(flight => flight.From.AirportCode == searchDto.FromAirport &&
+                                 flight.To.AirportCode == searchDto.ToAirport &&
+                                 flight.DepartureTime == searchDto.DepartureTime)
+                .ToList();
 
             return matchingFlights;
-
         }
     }
 }
