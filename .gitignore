@@ -1,3 +1,4 @@
 node_modules
 .vs
 flight-planner-net/WebApplication1/bin
+flight-planner-net/WebApplication1/obj
