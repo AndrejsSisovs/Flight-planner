@@ -1,4 +1,3 @@
-
 using Flightplanner.Services;
 using FlightPlanner.Core.Services;
 using FlightPlanner.Data;
@@ -7,8 +6,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using WebApplication1.Handlers;
-using WebApplication1.Validations;
-using IValidator = WebApplication1.Validations.IValidator;
 
 namespace WebApplication1
 {
@@ -36,8 +33,6 @@ namespace WebApplication1
             builder.Services.AddScoped<IDbClearingService, DbClearingService>();
             builder.Services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
             builder.Services.AddScoped<IFlightService, FlightService>();
-            builder.Services.AddScoped<IValidator, CarrierValidator>();
-            builder.Services.AddScoped<IValidator, FlightDatesValidator>();
 
             builder.Services.AddScoped<IAirportService, AirportService>();
 

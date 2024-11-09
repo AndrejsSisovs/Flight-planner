@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Flightplanner.Services;
 using FlightPlanner.Core.Models;
 using FlightPlanner.Core.Services;
 using FluentValidation;
@@ -14,21 +13,18 @@ namespace WebApplication1.Controllers
     {
         private readonly IFlightService _flightService;
         private readonly IAirportService _airportService;
-        private readonly IEnumerable<IValidator> _validators;
-        private readonly IValidator<Flight> _validator;
         private readonly IMapper _mapper;
+        private readonly IValidator<SearchFlightsRequest> _validator;
 
         public CustomerController(
             IFlightService flightService, 
             IAirportService airportService,
             IMapper mapper,
-            IEnumerable<IValidator> validators,
-            IValidator<Flight> validator)
+            IValidator<SearchFlightsRequest> validator)
         {
             _flightService = flightService;
             _mapper = mapper;
             _airportService = airportService;
-            _validators = validators;
             _validator = validator;
         }
 
@@ -53,12 +49,11 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult SearchFlights(SearchFlightsRequest searchRequest)
         {
-            if (string.IsNullOrEmpty(searchRequest.From) ||
-                string.IsNullOrEmpty(searchRequest.To) ||
-                string.IsNullOrEmpty(searchRequest.DepartureDate) ||
-                searchRequest.From == searchRequest.To)
+            var validationResult = _validator.Validate(searchRequest);
+
+            if (!validationResult.IsValid)
             {
-                return BadRequest("");
+                return BadRequest();
             }
 
             var mappedSearchRequest = new UserSearchFlights

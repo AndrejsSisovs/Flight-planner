@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using FlightPlanner.Core.Models;
 using FlightPlanner.Core.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.models;
-using IValidator = WebApplication1.Validations.IValidator;
 
 namespace WebApplication1.Controllers
 {
@@ -16,19 +14,16 @@ namespace WebApplication1.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IFlightService _flightService;
-        private readonly IEnumerable<IValidator> _validators;
         private readonly IValidator<Flight> _validator;
         private readonly IMapper _mapper;
         private static readonly object _flightLock = new object();
 
         public AdminController(
             IFlightService flightService,
-            IEnumerable<IValidator> validators,
             IMapper mapper,
             IValidator<Flight> validator)
         {
             _flightService = flightService;
-            _validators = validators;
             _validator = validator;
             _mapper = mapper;
         }
