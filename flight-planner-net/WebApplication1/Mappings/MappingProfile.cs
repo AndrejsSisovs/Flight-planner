@@ -21,13 +21,6 @@ namespace WebApplication1.Mappings
             CreateMap<Airport, AirportResponse>()
                 .ForMember(response => response.Airport,
                 option => option.MapFrom(request => request.AirportCode));
-
-            CreateMap<Flight, SearchFlightsRequest>()
-                .ForMember(airport => airport.AirportCode,
-                option => option.MapFrom(request => request.Airport))
-                .ForMember(airport => airport.Id,
-                options => options.Ignore());
-
         }
     }
 }

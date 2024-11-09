@@ -4,3 +4,15 @@ C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\F
 C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\obj\Debug\net8.0\FlightPlanner.Data.AssemblyInfo.cs
 C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\obj\Debug\net8.0\FlightPlanner.Data.csproj.CoreCompileInputs.cache
 C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\obj\Debug\net8.0\FlightPlanner.Data.sourcelink.json
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\bin\Debug\net8.0\FlightPlanner.Data.deps.json
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\bin\Debug\net8.0\FlightPlanner.Data.runtimeconfig.json
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\bin\Debug\net8.0\FlightPlanner.Data.dll
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\bin\Debug\net8.0\FlightPlanner.Data.pdb
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\bin\Debug\net8.0\FlightPlanner.Core.dll
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\bin\Debug\net8.0\FlightPlanner.Core.pdb
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\obj\Debug\net8.0\FlightPl.4E0D42EC.Up2Date
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\obj\Debug\net8.0\FlightPlanner.Data.dll
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\obj\Debug\net8.0\refint\FlightPlanner.Data.dll
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\obj\Debug\net8.0\FlightPlanner.Data.pdb
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\obj\Debug\net8.0\FlightPlanner.Data.genruntimeconfig.cache
+C:\Users\Андрей\Desktop\flight-planner\Flight-planner\flight-planner-net\FlightPlanner.Data\obj\Debug\net8.0\ref\FlightPlanner.Data.dll

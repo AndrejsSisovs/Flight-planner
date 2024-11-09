@@ -19,6 +19,7 @@ namespace WebApplication1.Controllers
         private readonly IEnumerable<IValidator> _validators;
         private readonly IValidator<Flight> _validator;
         private readonly IMapper _mapper;
+        private static readonly object _flightLock = new object();
 
         public AdminController(
             IFlightService flightService,
@@ -40,42 +41,60 @@ namespace WebApplication1.Controllers
             var result = _flightService.GetFullFlightById(id);
             if (result == null)
             {
+
                 return NotFound();
             }
             var response = _mapper.Map<FlightResponse>(result); ;
             return Ok(response);
         }
+        
 
         [Route("flights")]
         [HttpPost]
         public IActionResult AddFlight(FlightRequest request)
         {
-            var flight = _mapper.Map<Flight>(request);
-            var validationResult = _validator.Validate(flight);
-            if (!validationResult.IsValid)
+            lock (_flightLock)
             {
-                return BadRequest();
-            }
+                var flight = _mapper.Map<Flight>(request);
+                var validationResult = _validator.Validate(flight);
 
-            if (_flightService.FlightExists(flight))
-            {
-                return Conflict();
-            }
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest();
+                }
 
-            var result =  _flightService.Create(flight);
-            var response = _mapper.Map<FlightResponse>(flight);
-            response.Id = result.Entity.Id;
-            return Created("", response);
+                if (_flightService.FlightExists(flight))
+                {
+                    return Conflict();
+                }
+
+                var result = _flightService.Create(flight);
+                var response = _mapper.Map<FlightResponse>(flight);
+                response.Id = result.Entity.Id;
+
+                return Created("", response);
+            }
         }
-
 
         [Route("flights/{id}")]
         [HttpDelete]
         public IActionResult DeleteFlight(int id)
         {
-            var result = _flightService.DeleteFlight(id);
-            
-            return Ok();
+            lock (_flightLock) 
+            {
+                var delete = _flightService.GetById(id);
+
+                if (delete != null)
+                {
+                    var result = _flightService.Delete(delete);
+                    if (result.Succeeded)
+                    {
+                        return Ok();
+                    }
+                }
+
+                return Ok();
+            }
         }
     }
 }

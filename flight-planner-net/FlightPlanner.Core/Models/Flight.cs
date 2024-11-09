@@ -7,5 +7,6 @@
         public string Carrier { get; set; }
         public string DepartureTime { get; set; }
         public string ArrivalTime { get; set; }
+
     }
 }

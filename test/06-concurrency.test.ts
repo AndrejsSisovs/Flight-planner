@@ -23,7 +23,7 @@ describe("Concurrency Handling", () => {
 
     it("should not be able to add the same flight twice", async done => {
         const request = randomAddFlightRequest()
-
+        console.log(request)
         await Promise.all(_.range(0, 100).map(async () => {
             try {
                 await AdminFlightApi.addFlight(request)
@@ -36,7 +36,7 @@ describe("Concurrency Handling", () => {
             request.to.airport,
             moment(request.departureTime)
         ))
-
+        console.log(request)
         expect(response.data.totalItems).toBe(1)
 
         done()

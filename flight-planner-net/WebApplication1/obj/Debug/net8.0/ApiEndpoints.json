@@ -80,6 +80,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebApplication1.Controllers.CustomerController",
+    "Method": "SearchFlights",
+    "RelativePath": "api/flights/search",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "searchRequest",
+        "Type": "WebApplication1.models.SearchFlightsRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApplication1.Controllers.TestingController",
     "Method": "Clear",
     "RelativePath": "testing-api/clear",
