@@ -1,2 +1,13 @@
 node_modules
 .vs
+flight-planner-net/WebApplication1/bin
+flight-planner-net/WebApplication1/obj
+
+flight-planner-net/FlightPlanner.Core/bin
+flight-planner-net/FlightPlanner.Core/obj
+
+flight-planner-net/FlightPlanner.Data/bin
+flight-planner-net/FlightPlanner.Data/obj
+
+flight-planner-net/Flightplanner.Services/bin
+flight-planner-net/Flightplanner.Services/obj

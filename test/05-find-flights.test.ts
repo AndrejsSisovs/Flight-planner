@@ -11,7 +11,7 @@ describe("Finding Flights", () => {
             DXB.airport,
             baseDate
         )
-
+        console.log(request)
         const response = await CustomerFlightApi.searchFlights(request)
 
         expect(response.status).toBe(200)
