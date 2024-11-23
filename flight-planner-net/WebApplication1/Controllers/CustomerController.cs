@@ -56,15 +56,10 @@ namespace WebApplication1.Controllers
                 return BadRequest();
             }
 
-            var mappedSearchRequest = new UserSearchFlights
-            {
-                From = searchRequest.From,
-                To = searchRequest.To,
-                DepartureDate = searchRequest.DepartureDate
-            };
+            
 
 
-            var matchingFlights = _flightService.SearchFlights(mappedSearchRequest);
+            var matchingFlights = _flightService.SearchFlights( searchRequest.From, searchRequest.To, searchRequest.DepartureDate);
 
             if (!matchingFlights.Any())
             {

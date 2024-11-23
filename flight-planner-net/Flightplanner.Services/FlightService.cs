@@ -41,7 +41,7 @@ namespace Flightplanner.Services
             return Delete(flight);
         }
 
-        public IEnumerable<Flight> SearchFlights(UserSearchFlights searchRequest)
+        public IEnumerable<Flight> SearchFlights(string? searchRequestFrom, string? searchRequestTo, string? searchRequestDepartureDate)
         {
             var matchingFlights = new List<Flight>();
 
@@ -52,10 +52,10 @@ namespace Flightplanner.Services
                     continue;
                 }
 
-                if (flight.From.AirportCode == searchRequest.From &&
-                    flight.To.AirportCode == searchRequest.To &&
+                if (flight.From.AirportCode == searchRequestFrom &&
+                    flight.To.AirportCode == searchRequestTo &&
                     DateTime.TryParse(flight.DepartureTime, out DateTime flightDepartureDate) &&
-                    flightDepartureDate.Date == DateTime.Parse(searchRequest.DepartureDate).Date)
+                    flightDepartureDate.Date == DateTime.Parse(searchRequestDepartureDate).Date)
                 {
                     matchingFlights.Add(flight);
                 }
@@ -63,5 +63,28 @@ namespace Flightplanner.Services
 
             return matchingFlights;
         }
+
+        //public IEnumerable<Flight> SearchFlights(UserSearchFlights searchRequest)
+        //{
+        //    var matchingFlights = new List<Flight>();
+
+        //    foreach (var flight in _context.Flights.Include(f => f.From).Include(f => f.To))
+        //    {
+        //        if (flight.From == null || flight.To == null)
+        //        {
+        //            continue;
+        //        }
+
+        //        if (flight.From.AirportCode == searchRequest.From &&
+        //            flight.To.AirportCode == searchRequest.To &&
+        //            DateTime.TryParse(flight.DepartureTime, out DateTime flightDepartureDate) &&
+        //            flightDepartureDate.Date == DateTime.Parse(searchRequest.DepartureDate).Date)
+        //        {
+        //            matchingFlights.Add(flight);
+        //        }
+        //    }
+
+        //    return matchingFlights;
+        //}
     }
 }

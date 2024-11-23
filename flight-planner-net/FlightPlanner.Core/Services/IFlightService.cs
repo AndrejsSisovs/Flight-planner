@@ -7,6 +7,6 @@ namespace FlightPlanner.Core.Services
         bool FlightExists(Flight flight);
         Flight? GetFullFlightById(int id);
         ServiceResult DeleteFlight(int id);
-        IEnumerable<Flight> SearchFlights(UserSearchFlights searchRequest);
+        IEnumerable<Flight> SearchFlights(string? searchRequestFrom, string? searchRequestTo, string? searchRequestDepartureDate);
     }
 }
