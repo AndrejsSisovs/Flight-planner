@@ -77,18 +77,21 @@ namespace WebApplication1.Controllers
         {
             lock (_flightLock) 
             {
-                var delete = _flightService.GetById(id);
+                var flightToDelete = _flightService.GetFullFlightById(id);
 
-                if (delete != null)
+                if (flightToDelete != null)
                 {
-                    var result = _flightService.Delete(delete);
-                    if (result.Succeeded)
+                    var result = _flightService.DeleteFlight(flightToDelete.Id);
+                    if (!result.Succeeded)
                     {
                         return Ok();
                     }
+                    else 
+                    { 
+                        return BadRequest(); 
+                    }
                 }
-
-                return Ok();
+                return Ok("Flight was not found");
             }
         }
     }
